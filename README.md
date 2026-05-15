@@ -60,9 +60,9 @@ pip install -r requirements.txt
 2. Replace the placeholder values:
 
 ```python
-   STEAM\_API\_KEY = "your\_actual\_steam\_key"
-   IGDB\_CLIENT\_ID = "your\_actual\_igdb\_client\_id"
-   IGDB\_ACCESS\_TOKEN = "your\_actual\_igdb\_token"
+   STEAM\_API\_KEY = "your actual steam key"
+   IGDB\_CLIENT\_ID = "your actual igdb client id"
+   IGDB\_ACCESS\_TOKEN = "your actual igdb token"
    ```
 
 3. Save the file
