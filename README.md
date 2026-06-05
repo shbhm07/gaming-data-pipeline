@@ -231,3 +231,25 @@ This is a portfolio project - free to use and modify.
 
 > \*\*\[View Live Dashboard on Tableau Public](https://public.tableau.com/app/profile/shubham.kumar4613/viz/GamingDataAnalyticsDashboard/Dashboard1?publish=yes)\*\*
 
+## Game Market Segmentation
+
+K-Means clustering analysis identifying 4 distinct market segments
+across 100 Steam titles based on pricing, review volume, and sentiment.
+
+**Segments Identified:**
+
+| Segment | Games | Key Characteristic |
+|---------|-------|-------------------|
+| Community Favorites | 57 (57%) | High sentiment, accessible pricing |
+| Premium Releases | 20 (20%) | Full-price AAA, quality-driven |
+| Underperformers | 20 (20%) | Monetization over player value |
+| Evergreen Blockbusters | 3 (3%) | Cultural phenomena, massive reach |
+
+**Key Finding:** 57% of titles cluster as Community Favorites -
+quality at accessible price points outperforms both premium
+and monetization-heavy titles regardless of franchise size.
+
+**Scripts:** segmentation.py
+
+**Visualizations:** cluster_scatter.png, cluster_characteristics.png,
+segment_distribution.png
