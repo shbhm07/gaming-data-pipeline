@@ -1,238 +1,216 @@
-# Gaming Data Pipeline \& Dashboard Project
+# Gaming Data Analytics Pipeline
 
-A professional data analytics project that extracts gaming data from Steam and IGDB APIs, transforms it through an ETL pipeline, and provides dashboards for business intelligence.
+An end-to-end data analytics project built on the video game industry.
+Covers API data extraction, ETL pipeline development, SQLite database design,
+K-Means market segmentation, and Tableau business intelligence.
 
-## 🎯 Project Overview
+**Live Dashboard**: [View on Tableau Public](https://public.tableau.com/app/profile/shubham.kumar4613/viz/GamingDataAnalyticsDashboard/Dashboard1?publish=yes)
 
-This project demonstrates:
+**Author**: Shubham Kumar | Senior Data Analyst
+[LinkedIn](https://linkedin.com/in/shbhm07) · [GitHub](https://github.com/shbhm07)
 
-* **ETL Pipeline Development**: Automated data extraction, transformation, and loading
-* **Multi-Source Data Integration**: Combining Steam and IGDB data
-* **Data Warehousing**: SQLite database with dimensional modeling
-* **Business Intelligence**: Export-ready datasets for dashboard tools
-* **Data Quality**: Error handling, logging, and validation
+---
 
-## 📁 Project Structure
+## Project Overview
+
+This project demonstrates a complete data analytics workflow applied to
+the video game industry - from raw API extraction to machine learning
+segmentation and business intelligence reporting.
+
+**Data Sources:**
+- Steam Store API + SteamSpy API (100 games with pricing and review data)
+- IGDB API (100 games with ratings, genres, and platform metadata)
+
+**Key Findings:**
+- 57% of analyzed titles fall in the Community Favorites segment, driven
+  by quality at accessible price points rather than production budget
+- Monetization-heavy titles consistently underperform quality-driven titles
+  regardless of franchise size or brand recognition
+- Action and Shooter genres account for 59% of all titles in the dataset
+- PC platform represents 85%+ of platform coverage
+
+---
+
+## Technical Architecture
 
 ```
-gaming\_data\_pipeline/
-│
-├── etl\_pipeline.py          # Main ETL pipeline script
-├── analyze\_data.py           # Data analysis and export script
-├── config.py                 # Configuration file (API keys)
-├── requirements.txt          # Python dependencies
-├── README.md                 # This file
-│
-├── gaming\_data.db           # SQLite database (generated)
-└── dashboard\_exports/        # Exported CSV files (generated)
-    ├── games\_master.csv
-    ├── monthly\_trends.csv
-    ├── genre\_analysis.csv
-    ├── platform\_distribution.csv
-    ├── price\_vs\_rating.csv
-    ├── insights\_report.txt
-    └── quick\_analysis.png
+Steam API  ──┐
+             ├──► ETL Pipeline (Python) ──► SQLite Database ──► CSV Exports ──► Tableau Dashboard
+IGDB API   ──┘                                    │
+                                                  └──► K-Means Segmentation ──► Market Analysis
 ```
 
-## 🚀 Setup Instructions
+**Pipeline Stages:**
+1. Extract - API calls with rate limiting, error handling, and retry logic
+2. Transform - Data cleaning, genre normalization, derived field generation
+3. Load - SQLite database with dimensional schema
+4. Analyze - K-Means clustering for market segmentation
+5. Visualize - Interactive Tableau dashboard with 4 analytical views
 
-### Step 1: Install Python
+---
 
-If you don't have Python installed:
+## Tech Stack
 
-* **Windows**: Download from https://www.python.org/downloads/
+| Layer | Technology |
+|-------|-----------|
+| Language | Python 3.13 |
+| Data Processing | pandas |
+| Machine Learning | scikit-learn |
+| Database | SQLite |
+| API Integration | requests |
+| Visualization | Tableau Public |
+| Version Control | Git / GitHub |
 
-  * ✅ Check "Add Python to PATH" during installation
-* **Mac**: Python 3 comes pre-installed
-* **Linux**: Usually pre-installed, or `sudo apt install python3 python3-pip`
+---
 
-### Step 2: Install Dependencies
+## Project Structure
 
-Open terminal/command prompt in this folder and run:
+```
+gaming-data-pipeline/
+│
+├── etl_pipeline.py          # Main ETL pipeline (Steam + IGDB extraction)
+├── analyze_data.py          # Data analysis and CSV export
+├── fix_genres.py            # Genre normalization and standardization
+├── segmentation.py          # K-Means market segmentation model
+├── config_sample.py         # Configuration template (copy to config.py)
+├── requirements.txt         # Python dependencies
+│
+├── cluster_scatter.png      # Segmentation scatter plots
+├── cluster_characteristics.png  # Segment feature comparison
+├── segment_distribution.png # Games per segment chart
+└── elbow_curve.png          # K selection elbow curve
+```
 
+---
+
+## Part 1: ETL Pipeline & Dashboard
+
+### Setup
+
+**Step 1: Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Configure API Keys
-
-1. Open `config.py` in any text editor
-2. Replace the placeholder values:
-
-```python
-   STEAM\_API\_KEY = "your actual steam key"
-   IGDB\_CLIENT\_ID = "your actual igdb client id"
-   IGDB\_ACCESS\_TOKEN = "your actual igdb token"
-   ```
-
-3. Save the file
-
-### Step 4: Run the Pipeline
-
+**Step 2: Configure API keys**
 ```bash
-python etl\_pipeline.py
+cp config_sample.py config.py
+```
+Edit config.py and add your API keys:
+- Steam API Key: https://steamcommunity.com/dev/apikey
+- IGDB Credentials: https://api-docs.igdb.com/#account-creation
+
+**Step 3: Run the pipeline**
+```bash
+python etl_pipeline.py
+```
+Expected runtime: 20-25 minutes for 200 games (API rate limits apply)
+
+**Step 4: Export dashboard files**
+```bash
+python analyze_data.py
 ```
 
-This will:
+### Dashboard
 
-* Extract data from Steam and IGDB
-* Transform and clean the data
-* Load it into SQLite database
-* Generate monthly metrics
+Built in Tableau Public tracking 4 KPIs across 200 game titles:
 
-**Expected runtime**: 3-5 minutes for 100 games from each source
+| KPI | Value |
+|-----|-------|
+| Total Games Analyzed | 200 |
+| Average Price | $8.61 |
+| Free-to-Play Ratio | 67% |
+| Average IGDB Rating | 86.8 |
 
-### Step 5: Analyze \& Export Data
+Charts include: Games by Genre, Average Rating by Genre,
+Price Distribution, and Platform Distribution.
 
-```bash
-python analyze\_data.py
-```
+**View live**: [Gaming Data Analytics Dashboard](https://public.tableau.com/app/profile/shubham.kumar4613/viz/GamingDataAnalyticsDashboard/Dashboard1?publish=yes)
 
-This will:
+---
 
-* Generate database summary statistics
-* Export CSV files for dashboards
-* Create insights report
-* Generate quick visualizations
-
-## 📊 Dashboard Creation
-
-### Option A: Google Looker Studio (Recommended - Free \& Easy)
-
-1. Go to: https://lookerstudio.google.com/
-2. Click "Create" → "Data Source"
-3. Choose "File Upload"
-4. Upload `games\_master.csv` from `dashboard\_exports/`
-5. Click "Create Report"
-6. Add charts:
-
-   * **KPI Cards**: Total Games, Avg Price, Avg Rating
-   * **Bar Chart**: Games by Genre
-   * **Line Chart**: Release Trends (use monthly\_trends.csv)
-   * **Scatter Plot**: Price vs Rating
-   * **Pie Chart**: Platform Distribution
-
-### Option B: Tableau Public (Professional-Looking)
-
-1. Download: https://public.tableau.com/
-2. Open Tableau → "Connect to Data" → "Text file"
-3. Load `games\_master.csv`
-4. Create worksheets:
-
-   * Drag dimensions and measures to create visualizations
-   * Use Show Me panel for chart suggestions
-5. Create a dashboard and arrange visualizations
-6. Publish to Tableau Public (free)
-
-### Option C: Power BI Desktop (Microsoft Ecosystem)
-
-1. Download: https://powerbi.microsoft.com/desktop/
-2. Get Data → Text/CSV → Load `games\_master.csv`
-3. Create visualizations using the Fields pane
-4. Publish to PowerBI.com (free account)
-
-## 📈 Key Metrics to Track
-
-Your dashboard should include:
-
-### KPIs
-
-* Total Games Analyzed
-* Average Game Price
-* Average Rating Score
-* Free vs Paid Game Ratio
-
-### Trend Analysis
-
-* Monthly Release Patterns
-* Genre Popularity Over Time
-* Average Price Trends
-
-### Comparative Analysis
-
-* Price vs Rating Correlation
-* Genre Performance Comparison
-* Platform Distribution
-
-### Segmentation
-
-* Games by Price Range
-* Games by Genre
-* Games by Platform
-
-## 🔄 Updating the Data
-
-To refresh your data:
-
-```bash
-python etl\_pipeline.py  # Re-run pipeline
-python analyze\_data.py   # Re-export for dashboard
-```
-
-Then refresh your dashboard data source.
-
-## 🛠️ Technical Details
-
-**Tech Stack**:
-
-* **Language**: Python 3.8+
-* **Libraries**: pandas, requests, matplotlib, seaborn
-* **Database**: SQLite
-* **APIs**: Steam Web API, IGDB API v4
-* **Visualization**: Looker Studio / Tableau / Power BI
-
-**Pipeline Features**:
-
-* Rate limiting for API calls
-* Error handling and retry logic
-* Transaction-based database operations
-* ETL run logging and monitoring
-* Incremental data updates
-* Automated metric generation
-
-## 🐛 Troubleshooting
-
-**"ModuleNotFoundError"**: Run `pip install -r requirements.txt`
-
-**"API Error 401"**: Check your API keys in `config.py`
-
-**"Database locked"**: Close any programs viewing the .db file
-
-**"No data returned"**: Check API rate limits, wait 1 minute and retry
-
-## 📞 Next Steps
-
-1. ✅ Run the pipeline
-2. ✅ Create your dashboard
-3. ✅ Take screenshots for resume/portfolio
-4. ✅ Write a 2-page business insights report
-5. ✅ Upload to GitHub
-
-## 📄 License
-
-This is a portfolio project - free to use and modify.
-
-> \*\*\[View Live Dashboard on Tableau Public](https://public.tableau.com/app/profile/shubham.kumar4613/viz/GamingDataAnalyticsDashboard/Dashboard1?publish=yes)\*\*
-
-## Game Market Segmentation
+## Part 2: Market Segmentation
 
 K-Means clustering analysis identifying 4 distinct market segments
 across 100 Steam titles based on pricing, review volume, and sentiment.
 
-**Segments Identified:**
+### Methodology
 
-| Segment | Games | Key Characteristic |
-|---------|-------|-------------------|
-| Community Favorites | 57 (57%) | High sentiment, accessible pricing |
-| Premium Releases | 20 (20%) | Full-price AAA, quality-driven |
-| Underperformers | 20 (20%) | Monetization over player value |
-| Evergreen Blockbusters | 3 (3%) | Cultural phenomena, massive reach |
+**Features used:**
+- price_usd - Current Steam pricing
+- positive_reviews - Total positive review count
+- negative_reviews - Total negative review count
+- review_score - Derived sentiment ratio (positive / total reviews)
 
-**Key Finding:** 57% of titles cluster as Community Favorites -
-quality at accessible price points outperforms both premium
-and monetization-heavy titles regardless of franchise size.
+All features normalized using MinMaxScaler (0-1 range) before clustering.
+Optimal K=4 determined via Elbow Method.
 
-**Scripts:** segmentation.py
+**Data note:** Price reflects current Steam pricing, not original launch
+price. Legacy titles may show lower prices due to post-launch adjustments.
 
-**Visualizations:** cluster_scatter.png, cluster_characteristics.png,
-segment_distribution.png
+### Segments Identified
+
+| Segment | Games | Avg Review Score | Avg Price Score |
+|---------|-------|-----------------|-----------------|
+| Community Favorites | 57 (57%) | 0.880 | 0.169 |
+| Premium Releases | 20 (20%) | 0.744 | 0.707 |
+| Underperformers | 20 (20%) | 0.407 | 0.014 |
+| Evergreen Blockbusters | 3 (3%) | 0.590 | N/A* |
+
+*Price excluded as defining factor for Evergreen Blockbusters due to
+legacy pricing adjustments on titles like GTA V Legacy and TF2.
+
+### Key Finding
+
+Community Favorites is the dominant segment at 57% of the catalog.
+Quality at accessible price points consistently outperforms both
+premium and monetization-heavy titles regardless of franchise size.
+Titles like Palworld, Left 4 Dead 2, and Hollow Knight demonstrate
+that loyal communities are built through player value, not budget.
+
+### Run the Segmentation
+
+```bash
+python segmentation.py
+```
+
+---
+
+## Resume Description
+
+```
+Gaming Data Analytics Pipeline | Python, SQL, scikit-learn, Tableau, Git
+github.com/shbhm07/gaming-data-pipeline
+
+- Engineered automated ETL pipeline extracting 200+ game records from
+  Steam and IGDB APIs with rate limiting and error handling
+
+- Designed SQLite database schema and built genre normalization system
+  standardizing 50+ raw API genre combinations into 13 clean categories
+
+- Built K-Means clustering model segmenting 100 Steam titles into 4
+  market segments using pricing, review volume, and sentiment features
+
+- Delivered Tableau dashboard tracking 4 KPIs across pricing trends,
+  genre performance, and platform distribution across 200 titles
+
+- Key finding: 57% of titles succeed through community value over
+  production budget, regardless of franchise size
+```
+
+---
+
+## Troubleshooting
+
+**ModuleNotFoundError**: Run `pip install -r requirements.txt.`
+
+**API Error 401**: Check your API keys in config.py
+
+**Database locked**: Close any programs viewing the .db file
+
+**No data returned**: Check API rate limits, wait 1 minute, and retry
+
+---
+
+*Data sourced from Steam Store API, SteamSpy API, and IGDB API.
+Built as a portfolio demonstration project.*
