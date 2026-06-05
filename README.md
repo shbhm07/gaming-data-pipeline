@@ -171,23 +171,6 @@ python analyze\_data.py   # Re-export for dashboard
 
 Then refresh your dashboard data source.
 
-## 📝 For Your Resume
-
-**Project Description**:
-
-```
-Multi-Platform Gaming Data Pipeline \& BI Dashboard | Python, SQL, Tableau
-
-• Engineered ETL pipeline processing 200+ game records from Steam and IGDB APIs 
-  with automated error handling and retry logic
-• Designed dimensional data model in SQLite optimizing query performance for 
-  analytical workloads
-• Built executive dashboard tracking 12+ KPIs across 15 game categories with 
-  drill-down capability
-• Implemented data quality checks and logging reducing data inconsistencies by 95%
-• Delivered insights report identifying pricing trends and genre opportunities
-```
-
 ## 🛠️ Technical Details
 
 **Tech Stack**:
@@ -223,7 +206,7 @@ Multi-Platform Gaming Data Pipeline \& BI Dashboard | Python, SQL, Tableau
 2. ✅ Create your dashboard
 3. ✅ Take screenshots for resume/portfolio
 4. ✅ Write a 2-page business insights report
-5. ✅ Upload to GitHub (instructions in GITHUB\_SETUP.md)
+5. ✅ Upload to GitHub
 
 ## 📄 License
 
